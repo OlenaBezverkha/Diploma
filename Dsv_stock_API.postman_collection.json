@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "8ea19f1e-b33c-4c9a-8489-49ec238a179e",
+		"name": "Dsv stock API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get single product",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Atmosphere atmosphere_app_id=\" kingfisher-staging-dxng4SjIyRSZEFyQOSEKxAkyeVSPyFHhpRjLgn7c \""
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/store/products/02932136565",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"products",
+						"02932136565"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Atmosphere atmosphere_app_id=\" kingfisher-staging-dxng4SjIyRSZEFyQOSEKxAkyeVSPyFHhpRjLgn7c \""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"ean\" : \"5397007050028\",\r\n\t\"quantity\" : 20,\r\n\t\"reason_code\" : \"In Stock\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/store/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Increment quantity",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Atmosphere atmosphere_app_id=\" kingfisher-staging-dxng4SjIyRSZEFyQOSEKxAkyeVSPyFHhpRjLgn7c \""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ean\" : \"02932136565\",\n\t\"action\" : \"increment-quantity\",\n\t\"quantity\" : 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/store/products/eans",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"products",
+						"eans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Decrement quantity",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Atmosphere atmosphere_app_id=\" kingfisher-staging-dxng4SjIyRSZEFyQOSEKxAkyeVSPyFHhpRjLgn7c \""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ean\" : \"02932136565\",\n\t\"action\" : \"decrement-quantity\",\n\t\"quantity\" : 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/store/products/eans",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"products",
+						"eans"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
