@@ -1,6 +1,8 @@
 package com.superstore.storesever.controller;
 
+import com.superstore.storesever.error.ItemAllredyExistException;
 import com.superstore.storesever.error.ItemNotFoundException;
+import com.superstore.storesever.error.QauntityLessThenZero;
 import com.superstore.storesever.model.PatchOperation;
 import com.superstore.storesever.model.StoreItem;
 import com.superstore.storesever.service.StoreService;
@@ -29,37 +31,34 @@ public class StockController {
     }
 
     @PutMapping("")
-    public ResponseEntity<ResponseDataView> addNewItems(@RequestBody() StoreItem item) throws ItemNotFoundException {
+    public ResponseEntity<ResponseDataView> addNewItems(@RequestBody() StoreItem.Attributes attributes) throws ItemAllredyExistException {
 
+        StoreItem item = new StoreItem();
+        item.setId(attributes.getEan());
+        item.setType("stock");
+        item.setAttributes(attributes);
         StoreItem saved = storeService.addNewItem(item);
         return ResponseEntity.ok().body(new ResponseDataView(saved));
 
     }
 
     @PatchMapping("/eans")
-    public ResponseEntity<ResponseDataView> patchStoreItem(@RequestBody PatchOperation operation) throws ItemNotFoundException {
+    public ResponseEntity<ResponseDataView> patchStoreItem(@RequestBody PatchOperation operation) throws ItemNotFoundException, QauntityLessThenZero {
 
-        boolean success =  false;
+        StoreItem item;
 
         switch(operation.getAction()) {
             case INCEMENT:
-                success = storeService.incrementStoreItem(operation.getEan(), operation.getQauntity());
+                item = storeService.incrementStoreItem(operation.getEan(), operation.getQuantity());
                 break;
             case DECREMENT:
-                success = storeService.decrementStoreItem(operation.getEan(), operation.getQauntity());
+                item = storeService.decrementStoreItem(operation.getEan(), operation.getQuantity());
                 break;
             default:
                 throw new UnsupportedOperationException("We don't support operation: " + operation.getAction().getAction());
         }
 
-        Optional<StoreItem> sItem = storeService.getItemById(operation.getEan());
-
-        StoreItem item = sItem.orElseThrow(() -> new ItemNotFoundException(operation.getEan()));
-
-        if(success)
-            return ResponseEntity.ok(new ResponseDataView(item));
-        else
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new ResponseDataView(item));
+        return ResponseEntity.ok(new ResponseDataView(item));
 
     }
 }

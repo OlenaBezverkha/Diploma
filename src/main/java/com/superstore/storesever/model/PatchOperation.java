@@ -6,7 +6,7 @@ public class PatchOperation {
 
     private String ean;
     private Action action;
-    private int qauntity;
+    private int quantity;
 
     public String getEan() {
         return ean;
@@ -24,13 +24,14 @@ public class PatchOperation {
         this.action = action;
     }
 
-    public int getQauntity() {
-        return qauntity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQauntity(int qauntity) {
-        this.qauntity = qauntity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
+
 
     public enum Action {
 

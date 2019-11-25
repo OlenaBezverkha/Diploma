@@ -15,7 +15,7 @@ public class StoreItem {
     @Column(name = "type")
     private String type;
     @JsonProperty(value = "attributes")
-    @OneToOne(targetEntity = Attributes.class)
+    @OneToOne(targetEntity = Attributes.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "attributes")
     private Attributes attributes;
 
@@ -45,7 +45,7 @@ public class StoreItem {
 
     @Entity
     @Table(name ="attributes")
-    public class Attributes {
+    public static class Attributes {
         @JsonProperty(value = "ean")
         @Id
         @Column(name = "ean")
