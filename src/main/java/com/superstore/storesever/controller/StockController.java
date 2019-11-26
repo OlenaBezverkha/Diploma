@@ -2,17 +2,14 @@ package com.superstore.storesever.controller;
 
 import com.superstore.storesever.error.ItemAllredyExistException;
 import com.superstore.storesever.error.ItemNotFoundException;
-import com.superstore.storesever.error.QauntityLessThenZero;
+import com.superstore.storesever.error.QuantityLessThenZero;
 import com.superstore.storesever.model.PatchOperation;
 import com.superstore.storesever.model.StoreItem;
 import com.superstore.storesever.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.Optional;
 
 @RestController
@@ -43,7 +40,7 @@ public class StockController {
     }
 
     @PatchMapping("/eans")
-    public ResponseEntity<ResponseDataView> patchStoreItem(@RequestBody PatchOperation operation) throws ItemNotFoundException, QauntityLessThenZero {
+    public ResponseEntity<ResponseDataView> patchStoreItem(@RequestBody PatchOperation operation) throws ItemNotFoundException, QuantityLessThenZero {
 
         StoreItem item;
 
@@ -55,7 +52,7 @@ public class StockController {
                 item = storeService.decrementStoreItem(operation.getEan(), operation.getQuantity());
                 break;
             default:
-                throw new UnsupportedOperationException("We don't support operation: " + operation.getAction().getAction());
+                throw new UnsupportedOperationException("We don't support operation: " + operation.getAction().getActionDescriptor());
         }
 
         return ResponseEntity.ok(new ResponseDataView(item));

@@ -37,15 +37,15 @@ public class PatchOperation {
 
         DECREMENT("decrement-quantity"), INCEMENT("increment-quantity");
 
-        private String action;
+        private String actionDescriptor;
 
-        Action(String action) {
-            this.action = action;
+        Action(String actionDescriptor) {
+            this.actionDescriptor = actionDescriptor;
         }
 
         @JsonValue
-        public String getAction() {
-            return action;
+        public String getActionDescriptor() {
+            return actionDescriptor;
         }
 
     }
