@@ -3,6 +3,7 @@ package com.superstore.storesever.service;
 import com.superstore.storesever.error.ItemAllredyExistException;
 import com.superstore.storesever.error.ItemNotFoundException;
 import com.superstore.storesever.error.QuantityLessThenZero;
+import com.superstore.storesever.model.Attributes;
 import com.superstore.storesever.model.StoreItem;
 import com.superstore.storesever.repository.StoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class StoreService {
         Optional<StoreItem> oItem = storeItemRepository.findById(ean);
         StoreItem item = oItem.orElseThrow(() -> new ItemNotFoundException(ean));
 
-        StoreItem.Attributes attributes = item.getAttributes();
+        Attributes attributes = item.getAttributes();
         attributes.setQauntity(attributes.getQauntity() + qauntity);
         if(attributes.getQauntity() > 0 )
             attributes.setReasonCode("In Stock");
@@ -53,7 +54,7 @@ public class StoreService {
         Optional<StoreItem> oItem = storeItemRepository.findById(ean);
         StoreItem item = oItem.orElseThrow(() -> new ItemNotFoundException(ean));
 
-        StoreItem.Attributes attributes = item.getAttributes();
+        Attributes attributes = item.getAttributes();
         attributes.setQauntity(attributes.getQauntity() - qauntity);
         if(attributes.getQauntity() == 0 )
             attributes.setReasonCode("string");

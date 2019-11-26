@@ -3,6 +3,7 @@ package com.superstore.storesever.controller;
 import com.superstore.storesever.error.ItemAllredyExistException;
 import com.superstore.storesever.error.ItemNotFoundException;
 import com.superstore.storesever.error.QuantityLessThenZero;
+import com.superstore.storesever.model.Attributes;
 import com.superstore.storesever.model.PatchOperation;
 import com.superstore.storesever.model.StoreItem;
 import com.superstore.storesever.service.StoreService;
@@ -28,7 +29,7 @@ public class StockController {
     }
 
     @PutMapping("")
-    public ResponseEntity<ResponseDataView> addNewItems(@RequestBody() StoreItem.Attributes attributes) throws ItemAllredyExistException {
+    public ResponseEntity<ResponseDataView> addNewItems(@RequestBody() Attributes attributes) throws ItemAllredyExistException {
 
         StoreItem item = new StoreItem();
         item.setId(attributes.getEan());
